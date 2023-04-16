@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Discord Bot Config</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500&display=swap');
+   body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #101010;
+  color: #fff;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  background-color: #212121;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="url"],
+input[type="checkbox"],
+input[type="number"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: #1c1c1c;
+  color: #fff;
+  outline: none;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #4d4d4d;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: 0.8s ease;
+}
+
+button:hover {
+  background-color: #3d3d3d;
+}
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Dispenser Configuration Wizard</h1>
+      <h2>General</h2>
+      <form>
+        <label for="links">Links:</label>
+        <input type="text" id="links" name="links">
+        
+        <label for="toggle1">Bot Logging</label>
+        <input type="checkbox" id="toggle1" name="toggle1">
+        
+        <label for="toggle2">Log to webhook</label>
+        <input type="checkbox" id="toggle2" name="toggle2">
+        
+        <label for="r_webhook">Report Webhook:</label>
+        <input type="url" id="r_webhook" name="webhook">
+        <label for="l_webhook">Logging Webhook:</label>
+        <input type="url" id="l_webhook" name="webhook">
+        <h2> User  </h2>
+        <label for="userLimit"> Link Usage Limit:</label>
+        <input type="number" id="userLimit" name="LUL">
+        <h2> Display  </h2>
+        <h3> Buttons </h3>
+        <label for="emoji">Button Emoji:</label>
+        <input type="text" id="emoji" name="Button_Emoji">
+        <label for="buttonLabel">Button Label:</label>
+        <input type="text" id="buttonLabel" name="button_Label">
+        <label for="buttonStyle">Button Style:</label>
+        <input type="text" id="buttonStyle" name="button_Style">
+
+        <button id='button' type="button" onclick="saveSettings()">Save</button>
+       
+      </form>
+    </div>
+    
+    <script>
+   function loadConfig() {
+  fetch('/config')
+    .then(res => res.json())
+    .then(config => {
+      const linksInput = document.getElementById("links");
+      const toggle1Input = document.getElementById("toggle1");
+      const toggle2Input = document.getElementById("toggle2");
+      const l_webhook = document.getElementById("l_webhook");
+      const r_webhook = document.getElementById("r_webhook");
+      const userLimit = document.getElementById("userLimit");
+      const emoji = document.getElementById("emoji");
+      const buttonLabel = document.getElementById("buttonLabel")
+      const buttonStyle = document.getElementById("buttonStyle")
+      
+      linksInput.value = config.links ? config.links.join(", ") : '';
+      toggle1Input.checked = config.logging;
+      toggle2Input.checked = config.logToHook;
+      l_webhook.value = config.logWebhook;
+      r_webhook.value = config.reportWebhook;
+      userLimit.value = config.userLimit;
+      emoji.value = config.buttonEmoji;
+      buttonLabel.value = config.buttonLabel;
+      buttonStyle.value = config.buttonStyle;
+    })
+    .catch(err => console.error(err));
+}
+
+
+  function saveSettings() {
+  const linksInput = document.getElementById("links");
+  const toggle1Input = document.getElementById("toggle1");
+  const toggle2Input = document.getElementById("toggle2");
+  const l_webhook = document.getElementById("l_webhook");
+  const r_webhook = document.getElementById("r_webhook");
+  const userLimit = document.getElementById("userLimit");
+  const emoji = document.getElementById("emoji");
+  const buttonLabel = document.getElementById("buttonLabel")
+  const buttonStyle = document.getElementById("buttonStyle")
+  const linksArray = linksInput.value.split(',').map(link => link.trim());
+
+  const settings = {
+    links: linksArray,
+    logging: toggle1Input.checked,
+    logToHook: toggle2Input.checked,
+    reportWebhook: r_webhook.value,
+    logWebhook: l_webhook.value,
+    userLimit: userLimit.value,
+    buttonEmoji: emoji.value,
+    buttonLabel: buttonLabel.value, 
+    buttonStyle: buttonStyle.value
+  };
+  const subButton = document.getElementById('button')
+  fetch('/config', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(settings)
+  })
+  .then(res => res.text())
+  .then(data => subButton.style.backgroundColor = '#5dff5d', subButton.style.color = '#212121', subButton.innerText = 'Saved! 🎉')
+  .catch(err => subButton.innerText = 'Interal Error! 🚨', subButton.style.backgroundColor = 'rgb(255 79 79)', subButton.style.color = 'rgb(255 255 255)');
+}
+
+loadConfig();
+
+    </script>
+  </body>
+</html>
