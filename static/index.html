@@ -20,7 +20,13 @@ window.addEventListener("load", () => {
     </script> 
     <meta charset="UTF-8">
     <title>Dispenser Control Panel</title>
-   <link rel="stylesheet" type="text/css" href='style.css'> 
+    <link rel="stylesheet" type="text/css" href='style.css'> 
+    <meta name="viewport" content="user-scalable=1, initial-scale=1,minimum-scale=1, maximum-scale=5, width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
   </head>
   <body>
     <div id="loading-circle" style="
@@ -50,7 +56,7 @@ z-index: 10000203030;
       <h2>General</h2>
       <form>
         <label for="links">Links:</label>
-        <input type="text" id="links" name="links">
+        <input type="text" id="links" name="links" placeholder="Links, separated by commas (i.e. google.com, bing.com)">
         <div class="toggle"> 
         <label for="toggle1">Bot Logging</label>
         <input type="checkbox" id="toggle1" name="toggle1">
@@ -60,20 +66,20 @@ z-index: 10000203030;
         <input type="checkbox" id="toggle2" name="toggle2">
        </div>
         <label for="r_webhook">Report Webhook:</label>
-        <input type="url" id="r_webhook" name="webhook">
+        <input type="url" id="r_webhook" name="webhook" placeholder="Report webhook URL">
         <label for="l_webhook">Logging Webhook:</label>
-        <input type="url" id="l_webhook" name="webhook">
+        <input type="url" id="l_webhook" name="webhook" placeholder="Logging webhook URL">
         <h2> User  </h2>
         <label for="userLimit"> Link Usage Limit:</label>
-        <input type="number" id="userLimit" name="LUL">
+        <input type="number" id="userLimit" name="LUL" placeholder="Amount of allowed uses">
         <h2> Display  </h2>
         <h3> Buttons </h3>
         <label for="emoji">Button Emoji:</label>
-        <input type="text" id="emoji" name="Button_Emoji">
+        <input type="text" id="emoji" name="Button_Emoji" placeholder="An emoji for request button">
         <label for="buttonLabel">Button Label:</label>
-        <input type="text" id="buttonLabel" name="button_Label">
+        <input type="text" id="buttonLabel" name="button_Label" placeholder="Text to display on request button">
         <label for="buttonStyle">Button Style:</label>
-        <input type="text" id="buttonStyle" name="button_Style">
+        <input type="text" id="buttonStyle" name="button_Style" placeholder="Request button style (primary, secondary, success, danger)">
 
         <button id='button' type="button" onclick="saveSettings()">Save</button>
        
