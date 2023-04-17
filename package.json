@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo hi",
-    "start": "node server.js"
+    "start": "node panel.js"
   },
   "keywords": [
     "dispenser",
@@ -14,6 +14,7 @@
   "author": "Nebula Services",
   "license": "MIT",
   "dependencies": {
+    "colors-cli": "^1.0.32",
     "express": "^4.18.2"
   }
 }

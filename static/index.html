@@ -1,92 +1,64 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script> 
+    // Select the loading circle element and hide it by default
+const loadingCircle = document.getElementById("loading-circle");
+loadingCircle.style.display = "none";
+
+// Select the body element and hide its contents by default
+const body = document.getElementsByTagName("container")[0];
+body.style.display = "none";
+
+// Listen for the page to finish loading
+window.addEventListener("load", () => {
+  // Hide the loading circle
+  loadingCircle.style.display = "none";
+  // Show the body's contents
+  body.style.display = "block";
+});
+    </script> 
     <meta charset="UTF-8">
-    <title>Discord Bot Config</title>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500&display=swap');
-   body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Montserrat', sans-serif;
-  background-color: #101010;
-  color: #fff;
-}
-
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  background-color: #212121;
-}
-
-label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-input[type="text"],
-input[type="url"],
-input[type="checkbox"],
-input[type="number"] {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: none;
-  border-radius: 5px;
-  box-sizing: border-box;
-  font-size: 16px;
-  background-color: #1c1c1c;
-  color: #fff;
-  outline: none;
-}
-
-input[type="checkbox"] {
-  width: auto;
-  display: inline-block;
-  margin-right: 10px;
-}
-
-button {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  background-color: #4d4d4d;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  transition: 0.8s ease;
-}
-
-button:hover {
-  background-color: #3d3d3d;
-}
-
-
-    </style>
+    <title>Dispenser Control Panel</title>
+   <link rel="stylesheet" type="text/css" href='style.css'> 
   </head>
   <body>
-    <div class="container">
+    <div id="loading-circle" style="
+    z-index: 10000203030;
+    position: absolute;
+    background: #ffffff00;
+    width: 231px;
+    height: 239px;
+    border-radius: 200px;
+    border: 20px solid #ffa6a6;
+    top: 40vh;
+    display:none;
+"> <div id="loading-circle" style="
+z-index: 10000203030;
+    position: absolute;
+    background: #ffffff00;
+    margin-top: 30px;
+    margin-left: 12px;
+    width: 153px;
+    height: 177px;
+    border-radius: 186px;
+    border: 13px solid #4b00ff;
+    transform: skew(294deg, 10deg);
+"> </div></div>
+    <div class="container" id='container'>
       <h1>Dispenser Configuration Wizard</h1>
       <h2>General</h2>
       <form>
         <label for="links">Links:</label>
         <input type="text" id="links" name="links">
-        
+        <div class="toggle"> 
         <label for="toggle1">Bot Logging</label>
         <input type="checkbox" id="toggle1" name="toggle1">
-        
+        </div>
+        <div class="toggle"> 
         <label for="toggle2">Log to webhook</label>
         <input type="checkbox" id="toggle2" name="toggle2">
-        
+       </div>
         <label for="r_webhook">Report Webhook:</label>
         <input type="url" id="r_webhook" name="webhook">
         <label for="l_webhook">Logging Webhook:</label>
